@@ -1,0 +1,41 @@
+SLIPLINE RACING - SUPPORT
+
+Need help, found a bug, or have a question? Email:
+
+  slipline-racing@proton.me
+
+Please include your device model, iOS version, and what happened. We aim to
+reply within a few days.
+
+
+COMMON QUESTIONS
+
+Restoring the full game
+  If you bought the full game and it shows as locked (for example after
+  reinstalling or on a new device), open the store screen in the game and tap
+  Restore Purchase. Make sure you are signed in with the same Apple Account
+  you used to buy it.
+
+Progress after reinstalling
+  Gameplay progress can return through iCloud when you use the same iCloud
+  account. Allow time for your devices to sync. Settings, loadouts and ghost
+  recordings stay on each device; deleting the game removes those local files
+  unless you restore a device backup that includes them.
+
+Resetting progress
+  Reset Progress starts fresh here and on your other devices when they sync
+  through the same iCloud account. Purchases and Founding Pilot ownership stay.
+
+Game controllers
+  Connect a controller in your device's Bluetooth settings, then open the
+  game. Controls are explained in Settings > Controls.
+
+Refunds
+  Purchases are handled by Apple. To request a refund, visit
+  https://reportaproblem.apple.com
+
+
+PRIVACY
+
+The game collects no personal information. See the privacy policy:
+https://raw.githubusercontent.com/brandonmherbert-apps/slipline-racing/refs/heads/main/privacy-policy.txt
