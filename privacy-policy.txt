@@ -1,0 +1,151 @@
+SLIPLINE RACING - PRIVACY POLICY
+
+Effective date: 22 October 2026
+
+This policy explains how Slipline Racing ("the game", "we", "us") handles
+information on iPhone and iPad. The short version: the game does not collect,
+sell or share your personal information. Gameplay progress syncs between your
+own devices through your private iCloud account, and TestFlight reward
+ownership does too.
+
+
+1. INFORMATION WE COLLECT
+
+None. Slipline Racing has no accounts, no sign-in, no analytics, no
+advertising, and no tracking. The game does not send your gameplay or device
+details to us. Apple services handle purchases, iCloud progress and Game
+Center as described below.
+
+We do not use your information to track you across other companies' apps or
+websites, and the game does not ask for permission to do so.
+
+
+2. INFORMATION STORED ON YOUR DEVICE
+
+To work, the game saves the following on your device:
+
+  - Career progress, medals, records and best times
+  - Ship unlocks, cosmetics and loadouts
+  - Recorded runs used to show your best run ("ghosts")
+  - Settings such as sound, controls and display options
+
+Gameplay progress is saved on your device and can sync between your own
+devices through your private iCloud key-value storage. This includes Career
+and Elite progress, medals, records, Daily bests, XP, achievements and your
+play streak. We cannot access this private iCloud data. Settings, loadouts and
+ghost recordings stay on each device. Sync is tied to the iCloud account first
+used by this save; switching accounts pauses it. Apple controls availability
+and sync timing.
+
+Deleting the game removes its local files but does not delete synced progress.
+Manage synced data in Apple's iCloud storage settings. Reset Progress starts a
+new progress history that your other devices on the same account adopt when
+they sync. Purchases and Founding Pilot reward ownership are preserved. Local
+files may also be included in your own device backups, handled by Apple under
+its privacy policy.
+
+
+3. TESTFLIGHT REWARD
+
+If you play an eligible TestFlight build while signed in to iCloud, the game
+stores a Founding Pilot ownership flag in your private iCloud key-value
+storage. Apple syncs this flag to your devices using the same iCloud account,
+allowing the exclusive paint and exhaust to return after reinstalling or
+changing phones. The game keeps an account-specific ownership cache on your
+device for offline use. We cannot access your private iCloud reward data.
+Reset Progress does not erase this ownership. Deleting the app does not delete
+the synced iCloud flag; you can manage the game's iCloud data in Apple's
+iCloud storage settings. Apple controls sync timing, and deleting cloud data
+may prevent restoration on another device.
+
+
+4. PURCHASES
+
+The game offers one optional in-app purchase that unlocks the full game.
+Purchases are processed entirely by Apple through the App Store. We never
+receive your name, payment details or Apple Account information. The game
+only receives confirmation from Apple that the full game has been unlocked,
+so it can open the extra content and restore it if you reinstall.
+
+Apple's handling of purchases is covered by Apple's privacy policy:
+https://www.apple.com/legal/privacy/
+
+
+5. GAME CENTER
+
+If you sign in to Apple Game Center, the game sends achievement identifiers
+and completion percentages, and your best scores for its leaderboards (Surge
+stages and race and time trial times), to Apple. Other players can see
+leaderboard scores with your Game Center name, as Game Center shows them.
+Apple manages your Game Center account and profile under its privacy policy.
+You can play offline without signing in. Resetting local progress does not
+reset Game Center achievements or scores. We do not operate a server that
+collects your gameplay progress.
+
+
+6. SHARING YOUR BUILD
+
+If you choose Share in the hangar, the game creates a poster on your device
+showing your selected craft, paint, exhaust and personal records. The iOS share
+sheet sends that image only to the app or destination you select. Slipline does
+not upload the poster to a developer-operated server. Choosing Save Image may
+ask permission to add the poster to Photos; the game does not read your library.
+
+
+7. GAME CONTROLLERS
+
+If you connect a game controller, the game reads its button and stick input
+to let you play. This input is used only on your device and is not stored or
+sent anywhere.
+
+
+8. CRASH REPORTS AND FEEDBACK
+
+If you choose to share analytics with app developers in your device settings,
+Apple may provide us with anonymous crash reports and usage statistics. You
+control this in Settings > Privacy & Security > Analytics & Improvements.
+
+If you test a pre-release version through Apple's TestFlight and send
+feedback, Apple passes us the feedback, any screenshots you attach, and the
+basic device information Apple includes with it. We use this only to fix
+problems and improve the game.
+
+If you contact us by email, we use your email address and message only to
+reply to you, and we do not share them with anyone.
+
+
+9. CHILDREN
+
+The game does not knowingly collect personal information from anyone,
+including children under 13. Because the game collects no personal
+information, there is nothing for a parent to request or delete from us.
+
+
+10. THIRD PARTIES
+
+The game contains no third-party advertising, analytics or tracking software.
+The only outside services it uses are Apple's (the App Store, in-app
+purchases, iCloud and Game Center), described above.
+
+
+11. YOUR CHOICES
+
+  - You can play without signing in to anything.
+  - You can delete local game data by deleting the game; manage synced
+    progress and reward data separately in iCloud storage settings.
+  - You can turn off sharing analytics with developers in your device's
+    Settings.
+
+
+12. CHANGES TO THIS POLICY
+
+If this policy changes, the updated version will be posted at this address
+with a new effective date. If the game ever starts collecting information,
+this policy will be updated before that happens.
+
+
+13. CONTACT
+
+Questions about this policy or the game:
+
+  slipline-racing@proton.me
