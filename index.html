@@ -1,0 +1,737 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Slipline</title>
+<meta name="description" content="Slipline is an anti-gravity racer for iPhone and iPad: eight circuits, eight craft, three modes and a four-tier Career. Free to download.">
+<meta name="theme-color" content="#0b0920">
+<meta property="og:title" content="Slipline">
+<meta property="og:description" content="Anti-gravity racing for iPhone and iPad.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preload" href="assets/fonts/Orbitron.ttf" as="font" type="font/ttf" crossorigin>
+<style>
+@font-face { font-family: "Orbitron"; src: url("assets/fonts/Orbitron.ttf") format("truetype"); font-weight: 400 900; font-display: swap; }
+@font-face { font-family: "Saira"; src: url("assets/fonts/Saira.ttf") format("truetype"); font-weight: 100 900; font-stretch: 50% 125%; font-display: swap; }
+
+:root {
+  color-scheme: dark;
+  --bg: #0b0920;
+  --bg-2: #120f2e;
+  --panel: rgba(22, 18, 52, 0.72);
+  --line: rgba(255, 255, 255, 0.10);
+  --text: #f4f2ff;
+  --muted: #a9a3cf;
+  --pink: #ff3d8b;
+  --violet: #8a5cff;
+  --cyan: #3ef2e0;
+  --gold: #ffc23a;
+  --orange: #ff7a2f;
+  --radius: 18px;
+  --gutter: clamp(16px, 4vw, 48px);
+  --max: 1200px;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font-family: "Saira", system-ui, sans-serif; font-size: 18px; line-height: 1.55;
+  -webkit-font-smoothing: antialiased; overflow-x: hidden;
+}
+img, video { display: block; max-width: 100%; }
+a { color: inherit; }
+.wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+.display { font-family: "Orbitron", sans-serif; font-weight: 900; letter-spacing: 0.02em; text-transform: uppercase; }
+.eyebrow { font-family: "Orbitron", sans-serif; font-weight: 700; font-size: 13px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--cyan); }
+h2.display { font-size: clamp(34px, 5.5vw, 64px); line-height: 1.02; margin: 12px 0 16px; }
+.lede { color: var(--muted); font-size: clamp(18px, 2vw, 21px); max-width: 640px; margin: 0; }
+section { position: relative; padding: clamp(80px, 11vw, 140px) 0; }
+
+/* Nav */
+nav.top {
+  position: fixed; inset: 0 0 auto 0; z-index: 50;
+  transition: background .3s, border-color .3s, backdrop-filter .3s;
+  border-bottom: 1px solid transparent;
+}
+nav.top.scrolled { background: rgba(11, 9, 32, 0.78); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-color: var(--line); }
+nav.top .wrap { display: flex; align-items: center; gap: 24px; height: 68px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-family: "Orbitron"; font-weight: 900; letter-spacing: .08em; font-size: 18px; }
+.brand img { width: 34px; height: 34px; border-radius: 9px; }
+nav.top ul { display: flex; gap: 26px; list-style: none; margin: 0 0 0 auto; padding: 0; }
+nav.top ul a { text-decoration: none; color: var(--muted); font-weight: 600; font-size: 15px; letter-spacing: .04em; transition: color .2s; }
+nav.top ul a:hover { color: var(--text); }
+@media (max-width: 820px) { nav.top ul { display: none; } nav.top .btn { margin-left: auto; } }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 10px; text-decoration: none; cursor: pointer;
+  font-family: "Orbitron"; font-weight: 800; font-size: 14px; letter-spacing: .12em; text-transform: uppercase;
+  padding: 15px 24px; border-radius: 12px; border: 0; color: #12081f;
+  background: linear-gradient(100deg, var(--cyan), #8af7ff 45%, #fff);
+  box-shadow: 0 10px 30px -10px rgba(62, 242, 224, .6);
+  transition: transform .2s, box-shadow .2s;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 14px 34px -10px rgba(62, 242, 224, .8); }
+.btn.ghost { background: rgba(255,255,255,.06); color: var(--text); box-shadow: inset 0 0 0 1px rgba(255,255,255,.22); }
+.btn.small { padding: 10px 16px; font-size: 12px; }
+.btn svg { width: 18px; height: 18px; }
+
+/* Hero */
+.hero { position: relative; isolation: isolate; min-height: 100svh; display: flex; align-items: center; padding: 110px 0 70px; overflow: hidden; }
+.hero-bg { position: absolute; inset: 0; z-index: -1; }
+.hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: 60% 50%; }
+.hero-bg::after {
+  content: ""; position: absolute; inset: 0;
+  background:
+    linear-gradient(90deg, rgba(11,9,32,.9) 0%, rgba(11,9,32,.6) 42%, rgba(11,9,32,.1) 75%),
+    linear-gradient(0deg, var(--bg) 0%, transparent 28%),
+    linear-gradient(180deg, rgba(11,9,32,.55) 0%, transparent 20%);
+}
+.hero .wrap { display: grid; grid-template-columns: 1.15fr .85fr; gap: 48px; align-items: center; width: 100%; }
+.hero h1 { font-size: clamp(56px, 10.5vw, 136px); line-height: .9; margin: 18px 0 22px; letter-spacing: .01em;
+  background: linear-gradient(180deg, #fff 30%, #c9c2ff 100%); -webkit-background-clip: text; background-clip: text; color: transparent;
+  filter: drop-shadow(0 6px 30px rgba(138, 92, 255, .45)); }
+.hero .underline { display: block; width: 120px; height: 4px; border-radius: 4px; background: linear-gradient(90deg, var(--pink), var(--violet)); margin: -6px 0 26px; }
+.hero p.lede { color: #d6d1f5; }
+.cta-row { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 34px; }
+.price-note { margin-top: 18px; font-size: 15px; color: var(--muted); }
+
+.phone {
+  position: relative; justify-self: center; width: min(320px, 72vw); aspect-ratio: 886 / 1920;
+  border-radius: 46px; padding: 11px; background: linear-gradient(145deg, #3a3560, #14112c 40%, #2a2450);
+  box-shadow: 0 0 0 1px rgba(255,255,255,.12), 0 40px 90px -20px rgba(0,0,0,.8), 0 0 120px -10px rgba(138,92,255,.45);
+}
+.phone video, .phone img { width: 100%; height: 100%; object-fit: cover; border-radius: 36px; background: #000; }
+.phone::before { content: ""; position: absolute; top: 22px; left: 50%; transform: translateX(-50%); width: 92px; height: 26px; border-radius: 20px; background: #000; z-index: 2; }
+.sound {
+  position: absolute; right: -14px; bottom: 34px; z-index: 3; width: 52px; height: 52px; border-radius: 50%;
+  display: grid; place-items: center; border: 0; cursor: pointer; color: #12081f;
+  background: var(--cyan); box-shadow: 0 10px 24px -6px rgba(62,242,224,.7);
+}
+.sound svg { width: 22px; height: 22px; }
+[hidden] { display: none !important; }
+@media (max-width: 900px) {
+  .hero-bg::after { background: linear-gradient(180deg, rgba(11,9,32,.82) 0%, rgba(11,9,32,.7) 45%, rgba(11,9,32,.45) 75%, var(--bg) 100%); }
+  .hero .wrap { grid-template-columns: 1fr; text-align: left; }
+  .phone { margin-top: 20px; }
+}
+
+/* Facts */
+.facts { padding: 0; margin-top: -10px; }
+.facts .grid { display: grid; grid-template-columns: repeat(6, 1fr); border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); backdrop-filter: blur(10px); overflow: hidden; }
+.facts .cell { padding: 26px 18px; text-align: center; border-right: 1px solid var(--line); }
+.facts .cell:last-child { border-right: 0; }
+.facts b { display: block; font-family: "Orbitron"; font-weight: 900; font-size: clamp(30px, 3.6vw, 42px); line-height: 1; background: linear-gradient(180deg, #fff, var(--cyan)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.facts span { display: block; margin-top: 8px; color: var(--muted); font-size: 14px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+@media (max-width: 820px) {
+  .facts .grid { grid-template-columns: repeat(3, 1fr); }
+  .facts .cell:nth-child(3n) { border-right: 0; }
+  .facts .cell:nth-child(-n+3) { border-bottom: 1px solid var(--line); }
+}
+
+/* Gallery */
+.gallery { display: grid; grid-auto-flow: column; grid-auto-columns: clamp(200px, 22vw, 270px); gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter); padding: 4px var(--gutter) 18px; margin: 0 calc(-1 * var(--gutter)); scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.2) transparent; }
+.gallery figure { margin: 0; scroll-snap-align: start; border-radius: var(--radius); overflow: hidden; aspect-ratio: 1179 / 2556; background: var(--bg-2); box-shadow: 0 0 0 1px var(--line), 0 30px 60px -30px rgba(0,0,0,.9); }
+.gallery img { width: 100%; height: 100%; object-fit: cover; }
+@media (max-width: 520px) { .gallery { grid-auto-columns: 62vw; } }
+
+/* Section heads */
+.head { display: flex; justify-content: space-between; align-items: end; gap: 32px; flex-wrap: wrap; margin-bottom: 48px; }
+
+/* Circuits */
+.circuits { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.circuit {
+  position: relative; border-radius: var(--radius); overflow: hidden; aspect-ratio: 3 / 4; background: var(--bg-2);
+  box-shadow: 0 0 0 1px var(--line); transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s;
+}
+.circuit:hover { transform: translateY(-6px); box-shadow: 0 0 0 1px rgba(255,255,255,.3), 0 24px 50px -18px var(--glow, rgba(138,92,255,.7)); }
+.circuit video, .circuit img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.circuit::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(8,6,24,.92) 0%, rgba(8,6,24,.2) 40%, transparent 60%); }
+.circuit .meta { position: absolute; left: 18px; right: 18px; bottom: 16px; z-index: 2; }
+.circuit h3 { font-family: "Orbitron"; font-weight: 900; font-size: clamp(17px, 1.6vw, 21px); text-transform: uppercase; margin: 4px 0 2px; letter-spacing: .03em; }
+.tag { position: absolute; top: 14px; left: 14px; z-index: 2; font-family: "Orbitron"; font-weight: 800; font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; padding: 6px 10px; border-radius: 8px; background: rgba(11,9,32,.7); backdrop-filter: blur(6px); box-shadow: inset 0 0 0 1px rgba(255,255,255,.2); }
+.tag.free { color: var(--cyan); }
+.tag.full { color: var(--gold); }
+@media (max-width: 980px) { .circuits { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 420px) { .circuits { gap: 12px; } .circuit .meta { left: 12px; right: 12px; } }
+
+/* Modes */
+.modes-bg { background: linear-gradient(180deg, var(--bg) 0%, #140f36 50%, var(--bg) 100%); }
+.mode-tabs { display: inline-flex; gap: 6px; padding: 6px; border-radius: 14px; background: rgba(255,255,255,.05); box-shadow: inset 0 0 0 1px var(--line); margin-bottom: 28px; flex-wrap: wrap; }
+.mode-tabs button { font: 800 13px/1 "Orbitron"; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); background: transparent; border: 0; padding: 14px 20px; border-radius: 10px; cursor: pointer; transition: background .2s, color .2s; }
+.mode-tabs button[aria-selected="true"] { background: #fff; color: #12081f; }
+.mode-panel { display: grid; grid-template-columns: 1.35fr 1fr; gap: 44px; align-items: center; }
+.mode-panel[hidden] { display: none; }
+.shot { border-radius: var(--radius); overflow: hidden; box-shadow: 0 0 0 1px rgba(255,255,255,.14), 0 40px 80px -30px rgba(0,0,0,.9), 0 0 90px -30px rgba(255,61,139,.45); background: #000; }
+.shot img { width: 100%; height: auto; }
+.mode-panel h3 { font-family: "Orbitron"; font-weight: 900; font-size: clamp(28px, 3.4vw, 40px); text-transform: uppercase; margin: 0 0 10px; }
+.mode-panel p { color: var(--muted); margin: 0 0 22px; }
+.medals { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.medals li { display: flex; align-items: center; gap: 14px; padding: 12px 16px; border-radius: 12px; background: rgba(255,255,255,.04); box-shadow: inset 0 0 0 1px var(--line); font-weight: 600; }
+.medal { width: 26px; height: 26px; border-radius: 50%; flex: none; box-shadow: inset 0 -3px 0 rgba(0,0,0,.25), 0 0 0 3px rgba(255,255,255,.08); }
+.medal.g { background: radial-gradient(circle at 35% 30%, #fff3c4, var(--gold) 55%, #b97b00); }
+.medal.s { background: radial-gradient(circle at 35% 30%, #fff, #c9d1e6 55%, #7d86a0); }
+.medal.b { background: radial-gradient(circle at 35% 30%, #ffd9b5, #cd7f42 55%, #7a3f15); }
+.medals small { margin-left: auto; color: var(--muted); font-weight: 500; }
+@media (max-width: 900px) { .mode-panel { grid-template-columns: 1fr; gap: 28px; } }
+
+/* Career */
+.tiers { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 44px 0 50px; counter-reset: tier; }
+.tier { position: relative; padding: 24px 22px 22px; border-radius: var(--radius); background: var(--panel); box-shadow: inset 0 0 0 1px var(--line); overflow: hidden; }
+.tier::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 3px; background: var(--c); }
+.tier .n { font-family: "Orbitron"; font-weight: 700; font-size: 12px; letter-spacing: .2em; color: var(--c); }
+.tier h3 { font-family: "Orbitron"; font-weight: 900; font-size: 22px; text-transform: uppercase; margin: 6px 0 6px; }
+.tier p { margin: 0; color: var(--muted); font-size: 15.5px; }
+.tier .lock { position: absolute; top: 20px; right: 18px; font: 800 10px "Orbitron"; letter-spacing: .14em; color: var(--muted); text-transform: uppercase; }
+.career-shots { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+.career-shots figure { margin: 0; }
+.career-shots figcaption { margin-top: 12px; color: var(--muted); font-size: 15px; }
+@media (max-width: 980px) { .tiers { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 700px) { .career-shots { grid-template-columns: 1fr; } }
+@media (max-width: 420px) { .tiers { grid-template-columns: 1fr; } }
+
+/* Hangar */
+.hangar-bg { background: radial-gradient(ellipse 80% 60% at 30% 40%, rgba(138,92,255,.22), transparent 70%), var(--bg); }
+.hangar { display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; align-items: start; }
+.stage { position: relative; border-radius: var(--radius); overflow: hidden; aspect-ratio: 650 / 420; background: #000; box-shadow: 0 0 0 1px rgba(255,255,255,.14), 0 40px 80px -30px rgba(0,0,0,.9); }
+.stage img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity .35s; }
+.stage .cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 50px 24px 20px; background: linear-gradient(0deg, rgba(8,6,24,.92), transparent); }
+.stage .cap h3 { font-family: "Orbitron"; font-weight: 900; font-size: clamp(26px, 3vw, 36px); margin: 0; letter-spacing: .04em; }
+.stage .cap p { margin: 0; font-family: "Orbitron"; font-weight: 700; font-size: 12px; letter-spacing: .18em; color: var(--cyan); text-transform: uppercase; }
+.picker { display: grid; grid-template-columns: repeat(8, 1fr); gap: 8px; margin-top: 14px; }
+.picker button { padding: 0; border: 0; border-radius: 10px; overflow: hidden; cursor: pointer; aspect-ratio: 65 / 42; opacity: .55; box-shadow: inset 0 0 0 1px var(--line); transition: opacity .2s, box-shadow .2s, transform .2s; background: #000; }
+.picker button img { width: 100%; height: 100%; object-fit: cover; }
+.picker button:hover { opacity: .9; }
+.picker button[aria-pressed="true"] { opacity: 1; box-shadow: 0 0 0 2px var(--cyan); }
+.stats { display: grid; gap: 14px; margin: 0 0 26px; }
+.stat { display: grid; grid-template-columns: 96px 1fr; align-items: center; gap: 12px; }
+.stat span { font-family: "Orbitron"; font-weight: 700; font-size: 12px; letter-spacing: .14em; color: var(--muted); text-transform: uppercase; }
+.bar { height: 8px; border-radius: 8px; background: rgba(255,255,255,.08); overflow: hidden; }
+.bar i { display: block; height: 100%; border-radius: 8px; background: linear-gradient(90deg, var(--violet), var(--cyan)); transition: width .5s cubic-bezier(.2,.8,.2,1); }
+.panel { padding: 26px; border-radius: var(--radius); background: var(--panel); box-shadow: inset 0 0 0 1px var(--line); }
+.panel h4 { font-family: "Orbitron"; font-weight: 800; font-size: 13px; letter-spacing: .18em; text-transform: uppercase; margin: 0 0 16px; color: var(--text); }
+.swatches { display: flex; flex-wrap: wrap; gap: 10px; }
+.swatch { width: 34px; height: 34px; border-radius: 50%; box-shadow: 0 0 0 2px rgba(255,255,255,.14); position: relative; }
+.swatch:hover::after { content: attr(data-name); position: absolute; bottom: 120%; left: 50%; transform: translateX(-50%); white-space: nowrap; font: 700 11px "Orbitron"; letter-spacing: .1em; padding: 6px 8px; border-radius: 6px; background: #000; z-index: 3; }
+.hangar-video { display: grid; grid-template-columns: 1fr 1.3fr; gap: 40px; align-items: center; margin-top: 70px; }
+.hangar-video .clip { border-radius: var(--radius); overflow: hidden; box-shadow: 0 0 0 1px rgba(255,255,255,.14), 0 40px 80px -30px rgba(0,0,0,.9); max-width: 420px; justify-self: center; width: 100%; }
+.hangar-video video { width: 100%; aspect-ratio: 3/4; object-fit: cover; }
+@media (max-width: 900px) { .hangar, .hangar-video { grid-template-columns: 1fr; } .picker { grid-template-columns: repeat(4, 1fr); } }
+
+/* Items */
+.items { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; margin-top: 46px; }
+.item { padding: 26px 18px 22px; border-radius: var(--radius); background: var(--panel); box-shadow: inset 0 0 0 1px var(--line); text-align: center; transition: transform .25s, box-shadow .25s; }
+.item:hover { transform: translateY(-4px); box-shadow: inset 0 0 0 1px rgba(255,255,255,.25), 0 20px 40px -20px var(--c); }
+.item i { display: block; width: 64px; height: 64px; margin: 0 auto 16px; background: var(--c); -webkit-mask: var(--m) center / contain no-repeat; mask: var(--m) center / contain no-repeat; filter: drop-shadow(0 0 14px var(--c)); }
+.item h3 { font-family: "Orbitron"; font-weight: 900; font-size: 15px; letter-spacing: .1em; text-transform: uppercase; margin: 0 0 6px; }
+.item p { margin: 0; color: var(--muted); font-size: 14.5px; line-height: 1.4; }
+@media (max-width: 980px) { .items { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 520px) { .items { grid-template-columns: repeat(2, 1fr); } }
+
+/* Features */
+.features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 46px; }
+.feature { padding: 26px; border-radius: var(--radius); background: var(--panel); box-shadow: inset 0 0 0 1px var(--line); }
+.feature svg { width: 30px; height: 30px; color: var(--cyan); margin-bottom: 14px; }
+.feature h3 { font-family: "Orbitron"; font-weight: 800; font-size: 16px; letter-spacing: .06em; text-transform: uppercase; margin: 0 0 6px; }
+.feature p { margin: 0; color: var(--muted); font-size: 15.5px; }
+.challenge-shot { margin: 46px auto 0; max-width: 900px; }
+@media (max-width: 900px) { .features { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .features { grid-template-columns: 1fr; } }
+
+/* Pricing */
+.pricing { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 46px; }
+.plan { position: relative; padding: 34px 30px; border-radius: 22px; background: var(--panel); box-shadow: inset 0 0 0 1px var(--line); }
+.plan.full { background: linear-gradient(160deg, rgba(255,194,58,.14), rgba(22,18,52,.85) 45%); box-shadow: inset 0 0 0 1px rgba(255,194,58,.45), 0 30px 70px -30px rgba(255,194,58,.4); }
+.plan .price { font-family: "Orbitron"; font-weight: 900; font-size: 48px; line-height: 1; margin: 10px 0 4px; }
+.plan .sub { color: var(--muted); margin-bottom: 22px; }
+.plan ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.plan li { display: flex; gap: 12px; align-items: baseline; }
+.plan li::before { content: ""; flex: none; width: 8px; height: 8px; transform: rotate(45deg) translateY(-2px); background: var(--cyan); }
+.plan.full li::before { background: var(--gold); }
+@media (max-width: 760px) { .pricing { grid-template-columns: 1fr; } }
+
+/* Closing */
+.closing { isolation: isolate; min-height: 78vh; display: grid; place-items: center; text-align: center; overflow: hidden; }
+.closing .bg { position: absolute; inset: 0; z-index: -1; background: url("assets/img/wide/closing.jpg") 55% 50% / cover no-repeat; }
+.closing .bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, var(--bg) 0%, rgba(11,9,32,.35) 35%, rgba(11,9,32,.5) 70%, var(--bg) 100%); }
+.closing h2 { font-size: clamp(54px, 10vw, 120px); margin: 0 0 8px; }
+.closing .cta-row { justify-content: center; }
+
+footer { border-top: 1px solid var(--line); padding: 40px 0 calc(40px + env(safe-area-inset-bottom)); color: var(--muted); font-size: 15px; }
+footer .wrap { display: flex; flex-wrap: wrap; gap: 18px 28px; align-items: center; }
+footer nav { display: flex; gap: 22px; margin-left: auto; flex-wrap: wrap; }
+footer a { text-decoration: none; }
+footer a:hover { color: var(--text); }
+
+/* Reveal */
+.reveal { opacity: 0; transform: translateY(26px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.8,.2,1); }
+.reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .circuit, .item, .btn { transition: none; }
+}
+:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+</style>
+</head>
+<body>
+
+<nav class="top" id="nav">
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="icon.png" alt="">SLIPLINE</a>
+    <ul>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#circuits">Circuits</a></li>
+      <li><a href="#modes">Modes</a></li>
+      <li><a href="#career">Career</a></li>
+      <li><a href="#hangar">Hangar</a></li>
+      <li><a href="#price">Price</a></li>
+    </ul>
+    <a class="btn small app-store-link" href="#price">Get Slipline</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="hero-bg" aria-hidden="true">
+    <img src="assets/img/wide/hero.jpg" alt="" width="2400" height="1029" fetchpriority="high">
+  </div>
+  <div class="wrap">
+    <div>
+      <h1 class="display">Slipline</h1>
+      <span class="underline"></span>
+      <p class="lede">Anti-gravity racing for iPhone and iPad. Eight circuits, seven rivals on the grid, and a Career that takes you from Rookie to Champion.</p>
+      <div class="cta-row">
+        <a class="btn app-store-link" href="#price">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.62c-.02-2.3 1.88-3.4 1.96-3.46-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.47.83-.72 0-1.82-.81-3-.79-1.54.02-2.96.9-3.76 2.28-1.6 2.78-.41 6.9 1.15 9.16.76 1.1 1.67 2.34 2.86 2.3 1.15-.05 1.58-.74 2.97-.74 1.38 0 1.77.74 2.98.72 1.23-.02 2.01-1.12 2.76-2.23.87-1.28 1.23-2.52 1.25-2.58-.03-.01-2.4-.92-2.38-3.69zM14.1 5.86c.63-.77 1.06-1.83.94-2.89-.91.04-2.01.61-2.66 1.37-.58.67-1.1 1.76-.96 2.8 1.01.08 2.05-.52 2.68-1.28z"/></svg>
+          Coming to the App Store
+        </a>
+        <a class="btn ghost" href="#gallery">Screenshots</a>
+      </div>
+      <p class="price-note">Free to download. One $2.99 purchase unlocks everything else.</p>
+    </div>
+    <div class="phone">
+      <video id="trailer" class="auto" src="assets/video/trailer-phone.mp4" poster="assets/video/trailer-phone.jpg" muted loop playsinline autoplay preload="metadata" aria-label="Slipline trailer"></video>
+      <button class="sound" id="sound" aria-label="Turn trailer sound on" aria-pressed="false">
+        <svg id="snd-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z" fill="currentColor"/><path d="m22 9-6 6M16 9l6 6"/></svg>
+        <svg id="snd-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" hidden><path d="M11 5 6 9H2v6h4l5 4z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<section class="facts">
+  <div class="wrap">
+    <div class="grid reveal">
+      <div class="cell"><b>8</b><span>Circuits</span></div>
+      <div class="cell"><b>8</b><span>Craft</span></div>
+      <div class="cell"><b>3</b><span>Modes</span></div>
+      <div class="cell"><b>32</b><span>Career events</span></div>
+      <div class="cell"><b>12</b><span>Songs</span></div>
+      <div class="cell"><b>100</b><span>Ranks</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="gallery" style="padding-bottom:0">
+  <div class="wrap">
+    <div class="head reveal">
+      <div>
+        <h2 class="display">Gallery</h2>
+        <p class="lede">Straight from the game.</p>
+      </div>
+    </div>
+    <div class="gallery reveal" tabindex="0" aria-label="Screenshots">
+      <figure><img src="assets/img/gallery/01-city-loop-race.jpg" alt="Two craft racing above City Loop" loading="lazy" width="590" height="1280"></figure>
+      <figure><img src="assets/img/gallery/02-planet-ring.jpg" alt="Planet Ring curving past a ringed planet" loading="lazy" width="590" height="1280"></figure>
+      <figure><img src="assets/img/gallery/03-canyon-race-pack.jpg" alt="A pack of racers in Canyon" loading="lazy" width="590" height="1280"></figure>
+      <figure><img src="assets/img/gallery/04-snow-peak-aurora.jpg" alt="Snow Peak under the aurora" loading="lazy" width="590" height="1280"></figure>
+      <figure><img src="assets/img/gallery/05-sky-decks-craft.jpg" alt="A craft close up on Sky Decks" loading="lazy" width="590" height="1280"></figure>
+      <figure><img src="assets/img/gallery/06-forest-road.jpg" alt="Forest Road" loading="lazy" width="590" height="1280"></figure>
+      <figure><img src="assets/img/gallery/07-ocean-dive-tunnel.jpg" alt="The Ocean Dive tunnel" loading="lazy" width="590" height="1280"></figure>
+      <figure><img src="assets/img/gallery/08-hangar.jpg" alt="The Hangar with Sivora selected" loading="lazy" width="590" height="1280"></figure>
+    </div>
+  </div>
+</section>
+
+<section id="circuits">
+  <div class="wrap">
+    <div class="head reveal">
+      <div>
+        <h2 class="display">Circuits</h2>
+        <p class="lede">City streets, a snowy pass, a forest road and a tunnel under the sea. Then a ring around a planet, a volcano, a canyon and decks above the clouds. The first four are free.</p>
+      </div>
+    </div>
+    <div class="circuits" id="circuit-grid"></div>
+  </div>
+</section>
+
+<section id="modes" class="modes-bg">
+  <div class="wrap">
+    <div class="head reveal">
+      <div>
+        <h2 class="display">Modes</h2>
+        <p class="lede">Three ways to fly every circuit, with a medal to win in each.</p>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="mode-tabs" role="tablist" aria-label="Modes">
+        <button role="tab" id="tab-race" aria-controls="p-race" aria-selected="true">Race</button>
+        <button role="tab" id="tab-surge" aria-controls="p-surge" aria-selected="false" tabindex="-1">Surge</button>
+        <button role="tab" id="tab-trial" aria-controls="p-trial" aria-selected="false" tabindex="-1">Time Trial</button>
+      </div>
+
+      <div class="mode-panel" id="p-race" role="tabpanel" aria-labelledby="tab-race">
+        <div class="shot"><img src="assets/img/screens/race.jpg" alt="Racing seven rivals through City Loop" loading="lazy" width="1376" height="1032"></div>
+        <div>
+          <h3>Race</h3>
+          <p>Four laps against seven rivals. Fly over item pads for rockets, missiles, mines and turbos, and fight your way onto the podium.</p>
+          <ul class="medals">
+            <li><i class="medal g"></i>Gold<small>1st place</small></li>
+            <li><i class="medal s"></i>Silver<small>Top 3</small></li>
+            <li><i class="medal b"></i>Bronze<small>Top 5</small></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mode-panel" id="p-surge" role="tabpanel" aria-labelledby="tab-surge" hidden>
+        <div class="shot"><img src="assets/img/screens/surge.jpg" alt="Surge mode moving up to Class B" loading="lazy" width="1376" height="1032"></div>
+        <div>
+          <h3>Surge</h3>
+          <p>No rivals and no finish line. You get faster with every stage until you crash. Clean stages and barrel rolls push your score higher.</p>
+          <ul class="medals">
+            <li><i class="medal g"></i>Gold<small>Mach 1</small></li>
+            <li><i class="medal s"></i>Silver<small>Stage 30 in Rookie</small></li>
+            <li><i class="medal b"></i>Bronze<small>Stage 20 in Rookie</small></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mode-panel" id="p-trial" role="tabpanel" aria-labelledby="tab-trial" hidden>
+        <div class="shot"><img src="assets/img/screens/trial.jpg" alt="Time Trial against the clock" loading="lazy" width="1376" height="1032"></div>
+        <div>
+          <h3>Time Trial</h3>
+          <p>Three laps alone against the clock. Every circuit has a gold, silver and bronze time to beat, and your best run comes back as a ghost to race.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="career">
+  <div class="wrap">
+    <div class="head reveal">
+      <div>
+        <h2 class="display">Career</h2>
+        <p class="lede">Four tiers of eight events. They come in pairs: take a medal in both to win a new craft, paint or exhaust and open the next pair. Finish every pair to move up a tier.</p>
+      </div>
+    </div>
+    <div class="tiers">
+      <div class="tier reveal" style="--c: var(--cyan)"><div class="n">Tier 1</div><h3>Rookie</h3><p>Where everyone starts, on the four free circuits.</p><span class="lock" style="color:var(--cyan)">Free</span></div>
+      <div class="tier reveal" style="--c: var(--violet)"><div class="n">Tier 2</div><h3>Pro</h3><p>Planet Ring, Volcano, Canyon and Sky Decks join in.</p></div>
+      <div class="tier reveal" style="--c: var(--pink)"><div class="n">Tier 3</div><h3>Expert</h3><p>Faster classes and tighter targets.</p></div>
+      <div class="tier reveal" style="--c: var(--gold)"><div class="n">Tier 4</div><h3>Champion</h3><p>The hardest targets in the game.</p></div>
+    </div>
+    <div class="career-shots">
+      <figure class="reveal">
+        <div class="shot"><img src="assets/img/screens/career.jpg" alt="Rookie tier events in the Career screen" loading="lazy" width="1376" height="1032"></div>
+        <figcaption>The Rookie tier in Career.</figcaption>
+      </figure>
+      <figure class="reveal">
+        <div class="shot"><img src="assets/img/screens/results.jpg" alt="Results screen with a gold medal and new paints" loading="lazy" width="1376" height="1032"></div>
+        <figcaption>A gold medal and new paints.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section id="hangar" class="hangar-bg">
+  <div class="wrap">
+    <div class="head reveal">
+      <div>
+        <h2 class="display">Hangar</h2>
+        <p class="lede">You start with Aster. The other seven are won in Career, and each one handles differently.</p>
+      </div>
+    </div>
+    <div class="hangar reveal">
+      <div>
+        <div class="stage">
+          <img id="ship-img" src="assets/img/ships/aster.jpg" alt="Aster" width="650" height="420">
+          <div class="cap"><h3 id="ship-name">ASTER</h3><p id="ship-blurb">Balanced</p></div>
+        </div>
+        <div class="picker" id="picker" aria-label="Choose a craft"></div>
+      </div>
+      <div>
+        <div class="panel">
+          <h4 id="ship-how">Your first craft</h4>
+          <div class="stats" id="stats"></div>
+          <h4 style="margin-top:8px">Paints</h4>
+          <div class="swatches" id="swatches"></div>
+        </div>
+      </div>
+    </div>
+    <div class="hangar-video">
+      <div class="clip reveal"><video class="auto" src="assets/video/hangar.mp4" poster="assets/video/hangar.jpg" muted loop playsinline preload="none" aria-label="Changing paints and exhausts in the hangar"></video></div>
+      <div class="reveal">
+        <h2 class="display" style="font-size:clamp(28px,4vw,46px)">Paints and exhausts</h2>
+        <p class="lede">20 paints and 21 exhausts, earned through rank, Career and medals. None of them are for sale.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="items">
+  <div class="wrap">
+    <div class="head reveal">
+      <div>
+        <h2 class="display">Items</h2>
+        <p class="lede">Fly over a pad in Race to pick one up. Fall behind and you will see more turbos; run low on energy and a repair is more likely.</p>
+      </div>
+    </div>
+    <div class="items">
+      <div class="item reveal" style="--c:#ff7a2f;--m:url(assets/img/items/rocket.png)"><i></i><h3>Rocket</h3><p>Fires straight ahead.</p></div>
+      <div class="item reveal" style="--c:#ff3d8b;--m:url(assets/img/items/missile.png)"><i></i><h3>Missile</h3><p>Homes in on a craft ahead.</p></div>
+      <div class="item reveal" style="--c:#ffc23a;--m:url(assets/img/items/mines.png)"><i></i><h3>Mines</h3><p>Dropped behind you.</p></div>
+      <div class="item reveal" style="--c:#3ef2e0;--m:url(assets/img/items/shield.png)"><i></i><h3>Shield</h3><p>Five seconds of protection.</p></div>
+      <div class="item reveal" style="--c:#8a5cff;--m:url(assets/img/items/turbo.png)"><i></i><h3>Turbo</h3><p>A speed boost.</p></div>
+      <div class="item reveal" style="--c:#5dff9a;--m:url(assets/img/items/repair.png)"><i></i><h3>Repair</h3><p>Restores energy.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="more" class="modes-bg">
+  <div class="wrap">
+    <div class="head reveal">
+      <div>
+        <h2 class="display">Every day</h2>
+        <p class="lede">A Daily Challenge and five missions, new each day.</p>
+      </div>
+    </div>
+    <div class="shot challenge-shot reveal"><img src="assets/img/screens/challenges.jpg" alt="Challenges screen with the Daily Challenge and five missions" loading="lazy" width="1376" height="1032"></div>
+    <div class="features">
+      <div class="feature reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="3"/><path d="M8 2v4M16 2v4M3 10h18"/><path d="m9 15 2 2 4-4"/></svg>
+        <h3>Daily Challenge</h3><p>One new event a day. Your first finish is worth 500 XP.</p></div>
+      <div class="feature reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 15 8.5l7 .9-5 4.9 1.2 7L12 18l-6.2 3.3L7 14.3 2 9.4l7-.9z"/></svg>
+        <h3>Rank to 100</h3><p>Every race earns XP, with special sets at ranks 25, 50, 75 and 100.</p></div>
+      <div class="feature reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg>
+        <h3>Game Center</h3><p>Leaderboards for every circuit and mode, and 21 achievements.</p></div>
+      <div class="feature reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="11" rx="5.5"/><path d="M7 11v3M5.5 12.5h3"/><circle cx="16" cy="11.5" r=".8" fill="currentColor"/><circle cx="18" cy="13.5" r=".8" fill="currentColor"/></svg>
+        <h3>Controllers</h3><p>Touch, or any game controller, Backbone included.</p></div>
+      <div class="feature reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="2" width="11" height="20" rx="2.5"/><rect x="10" y="8" width="11" height="14" rx="2" fill="var(--bg)"/></svg>
+        <h3>iPhone &amp; iPad</h3><p>Portrait or landscape, with your progress synced between devices through iCloud.</p></div>
+      <div class="feature reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+        <h3>Your settings</h3><p>Chill for a gentler run in Arcade, plus reduced motion, reduced flashes and a battery saver.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="price">
+  <div class="wrap">
+    <div class="head reveal">
+      <div>
+        <h2 class="display">Price</h2>
+        <p class="lede">Slipline is free to download. One $2.99 purchase unlocks the rest of the game, with no subscription. Craft and cosmetics are never sold; you win them by racing.</p>
+      </div>
+    </div>
+    <div class="pricing">
+      <div class="plan reveal">
+        <div class="eyebrow">Free</div>
+        <div class="price">$0</div>
+        <div class="sub">Free download</div>
+        <ul>
+          <li>The Rookie tier: eight events</li>
+          <li>City Loop, Snow Peak, Forest Road and Ocean Dive</li>
+          <li>Race, Surge and Time Trial on all four</li>
+          <li>The Daily Challenge and missions</li>
+        </ul>
+      </div>
+      <div class="plan full reveal">
+        <div class="eyebrow" style="color:var(--gold)">Full game</div>
+        <div class="price">$2.99</div>
+        <div class="sub">One-time purchase</div>
+        <ul>
+          <li>The Pro, Expert and Champion tiers: 24 more events</li>
+          <li>Planet Ring, Volcano, Canyon and Sky Decks</li>
+          <li>The craft, paints and exhausts those events award</li>
+          <li>All eight circuits in Arcade</li>
+          <li>Restore Purchase on your other devices</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="closing">
+  <div class="bg" aria-hidden="true"></div>
+  <div class="wrap reveal">
+    <h2 class="display">Slipline</h2>
+    <p class="lede" style="margin:0 auto">For iPhone and iPad.</p>
+    <div class="cta-row">
+      <a class="btn app-store-link" href="#top">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.62c-.02-2.3 1.88-3.4 1.96-3.46-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.47.83-.72 0-1.82-.81-3-.79-1.54.02-2.96.9-3.76 2.28-1.6 2.78-.41 6.9 1.15 9.16.76 1.1 1.67 2.34 2.86 2.3 1.15-.05 1.58-.74 2.97-.74 1.38 0 1.77.74 2.98.72 1.23-.02 2.01-1.12 2.76-2.23.87-1.28 1.23-2.52 1.25-2.58-.03-.01-2.4-.92-2.38-3.69zM14.1 5.86c.63-.77 1.06-1.83.94-2.89-.91.04-2.01.61-2.66 1.37-.58.67-1.1 1.76-.96 2.8 1.01.08 2.05-.52 2.68-1.28z"/></svg>
+        Coming to the App Store
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="icon.png" alt="">SLIPLINE</a>
+    <span>© 2026 Brandon Herbert</span>
+    <nav>
+      <a href="https://raw.githubusercontent.com/brandonmherbert-apps/slipline-racing/refs/heads/main/support.txt">Support</a>
+      <a href="https://raw.githubusercontent.com/brandonmherbert-apps/slipline-racing/refs/heads/main/privacy-policy.txt">Privacy</a>
+      <a href="assets/fonts/OFL.txt">Font licences</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Circuits
+  const circuits = [
+    ["city", "City Loop", "#ff3d8b", true],
+    ["snow", "Snow Peak", "#a68cff", true],
+    ["forest", "Forest Road", "#5dff9a", true],
+    ["ocean", "Ocean Dive", "#3ef2e0", true],
+    ["planet", "Planet Ring", "#5fc8ff", false],
+    ["volcano", "Volcano", "#ff7a2f", false],
+    ["canyon", "Canyon", "#ffc23a", false],
+    ["sky", "Sky Decks", "#c7a6ff", false],
+  ];
+  const grid = document.getElementById("circuit-grid");
+  circuits.forEach(([id, name, glow, free], i) => {
+    const el = document.createElement("article");
+    el.className = "circuit reveal";
+    el.style.setProperty("--glow", glow + "aa");
+    el.style.setProperty("--glow-solid", glow);
+    el.style.transitionDelay = (i % 4) * 60 + "ms";
+    el.innerHTML = `
+      <video class="auto" src="assets/img/circuits/${id}.mp4" poster="assets/img/circuits/${id}.jpg" muted loop playsinline preload="none" aria-hidden="true"></video>
+      <span class="tag ${free ? "free" : "full"}">${free ? "Free" : "Full game"}</span>
+      <div class="meta"><h3>${name}</h3></div>`;
+    grid.appendChild(el);
+  });
+
+  // Mode tabs
+  const tabs = [...document.querySelectorAll('[role="tab"]')];
+  const select = (t) => {
+    tabs.forEach((b) => {
+      const on = b === t;
+      b.setAttribute("aria-selected", on);
+      b.tabIndex = on ? 0 : -1;
+      document.getElementById(b.getAttribute("aria-controls")).hidden = !on;
+    });
+  };
+  tabs.forEach((t, i) => {
+    t.addEventListener("click", () => select(t));
+    t.addEventListener("keydown", (e) => {
+      const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+      if (d) { const n = tabs[(i + d + tabs.length) % tabs.length]; select(n); n.focus(); }
+    });
+  });
+
+  // Hangar
+  const ships = [
+    ["aster", "ASTER", "Balanced", [1.0, 1.0, 1.0, 1.0], "Your first craft"],
+    ["vector", "LANCE", "Quick to turn", [1.0, 1.02, 1.07, 0.92], "Career reward"],
+    ["orvane", "ORVANE", "Stable and tough", [1.01, 1.0, 1.02, 1.14], "Career reward"],
+    ["rhyven", "RHYVEN", "Fastest off the line", [1.01, 1.08, 1.02, 0.98], "Career reward"],
+    ["bastrel", "BASTREL", "Toughest, slow to turn", [1.02, 1.01, 0.96, 1.25], "Career reward"],
+    ["sivora", "SIVORA", "Sharpest handling", [1.02, 1.03, 1.08, 1.0], "Career reward"],
+    ["caelix", "CAELIX", "Highest top speed, fragile", [1.06, 1.03, 1.03, 0.84], "Career reward"],
+    ["vantrel", "VANTREL", "Best all-round", [1.04, 1.05, 1.05, 1.1], "Career reward"],
+  ];
+  const statNames = ["Speed", "Accel", "Handling", "Shield"];
+  const stats = document.getElementById("stats");
+  statNames.forEach((n) => stats.insertAdjacentHTML("beforeend", `<div class="stat"><span>${n}</span><div class="bar"><i></i></div></div>`));
+  const bars = [...stats.querySelectorAll("i")];
+  const picker = document.getElementById("picker");
+  const img = document.getElementById("ship-img");
+  ships.forEach((s) => new Image().src = `assets/img/ships/${s[0]}.jpg`);
+  const show = (idx) => {
+    const [id, name, blurb, st, how] = ships[idx];
+    img.style.opacity = 0;
+    setTimeout(() => { img.src = `assets/img/ships/${id}.jpg`; img.alt = name; img.style.opacity = 1; }, reduce ? 0 : 160);
+    document.getElementById("ship-name").textContent = name;
+    document.getElementById("ship-blurb").textContent = blurb;
+    document.getElementById("ship-how").textContent = how;
+    st.forEach((v, k) => bars[k].style.width = (38 + (v - 0.84) / (1.25 - 0.84) * 62).toFixed(1) + "%");
+    [...picker.children].forEach((b, k) => b.setAttribute("aria-pressed", k === idx));
+  };
+  ships.forEach(([id, name], i) => {
+    const b = document.createElement("button");
+    b.innerHTML = `<img src="assets/img/ships/${id}.jpg" alt="" loading="lazy">`;
+    b.setAttribute("aria-label", name);
+    b.addEventListener("click", () => show(i));
+    picker.appendChild(b);
+  });
+  show(0);
+
+  // Paint swatches (hull and accent colours from the game)
+  const paints = [
+    ["Polar", [.92,.93,.96], [.9,.1,.12]], ["Cinder", [.075,.09,.12], [.95,.29,.045]],
+    ["Glacier", [.88,.95,.98], [.08,.35,.48]], ["Viper", [.065,.085,.075], [.68,.94,.13]],
+    ["Royale", [.25,.07,.39], [.92,.77,.49]], ["Solar", [.88,.35,.065], [.97,.9,.74]],
+    ["Eclipse", [.04,.065,.09], [.15,.76,.85]], ["Aurora", [0,.78,.72], [.55,.12,.95]],
+    ["Mirage", [.95,.97,1], [.04,.05,.08]], ["Obsidian", [.07,.075,.09], [.95,.72,.22]],
+    ["Supernova", [.06,.02,.05], [1,.3,.05]], ["Prism", [.6,.8,1], [.9,.7,1]],
+    ["Aurum", [1,.74,.26], [.05,.04,.04]], ["Tempest", [.035,.05,.11], [.35,.85,1]],
+    ["Sovereign", [1,.76,.3], [.03,.025,.03]], ["Chrono", [.86,.9,.97], [1,.25,.75]],
+    ["Nebula", [.03,.02,.08], [.7,.45,1]], ["Spectre", [.05,.22,.3], [.6,1,1]],
+    ["Magma", [.035,.03,.03], [1,.5,.1]], ["Singularity", [0,0,0], [1,.72,.36]],
+  ];
+  const rgb = (c) => `rgb(${c.map((v) => Math.round(v * 255)).join(",")})`;
+  const sw = document.getElementById("swatches");
+  paints.forEach(([n, a, b]) => sw.insertAdjacentHTML("beforeend",
+    `<span class="swatch" data-name="${n}" title="${n}" style="background:linear-gradient(135deg, ${rgb(a)} 50%, ${rgb(b)} 50%)"></span>`));
+
+  // Reveal on scroll
+  const io = new IntersectionObserver((es) => es.forEach((e) => {
+    if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+  }), { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+  document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+
+  // Play videos only while visible
+  const vids = document.querySelectorAll("video.auto");
+  if (reduce) {
+    vids.forEach((v) => { v.removeAttribute("autoplay"); v.pause(); });
+  } else {
+    const vo = new IntersectionObserver((es) => es.forEach((e) => {
+      const v = e.target;
+      if (e.isIntersecting) { v.preload = "auto"; v.play().catch(() => {}); } else v.pause();
+    }), { threshold: 0.25 });
+    vids.forEach((v) => vo.observe(v));
+  }
+
+  // Trailer sound
+  const trailer = document.getElementById("trailer");
+  const snd = document.getElementById("sound");
+  snd.addEventListener("click", () => {
+    trailer.muted = !trailer.muted;
+    if (!trailer.muted) { trailer.currentTime = 0; trailer.play().catch(() => {}); }
+    snd.setAttribute("aria-pressed", !trailer.muted);
+    snd.setAttribute("aria-label", trailer.muted ? "Turn trailer sound on" : "Turn trailer sound off");
+    document.getElementById("snd-on").hidden = trailer.muted;
+    document.getElementById("snd-off").hidden = !trailer.muted;
+  });
+
+  // Nav background
+  const nav = document.getElementById("nav");
+  const onScroll = () => nav.classList.toggle("scrolled", scrollY > 40);
+  addEventListener("scroll", onScroll, { passive: true }); onScroll();
+})();
+</script>
+</body>
+</html>
