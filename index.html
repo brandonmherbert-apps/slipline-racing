@@ -82,7 +82,8 @@ nav.top ul a:hover { color: var(--text); }
 /* Hero */
 .hero { position: relative; isolation: isolate; min-height: 100svh; display: flex; align-items: center; padding: 110px 0 70px; overflow: hidden; }
 .hero-bg { position: absolute; inset: 0; z-index: -1; }
-.hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: 60% 50%; }
+.hero-bg img, .hero-bg video { width: 100%; height: 100%; object-fit: cover; object-position: 60% 50%; }
+.hero-bg video { position: absolute; inset: 0; }
 .hero-bg::after {
   content: ""; position: absolute; inset: 0;
   background:
@@ -286,6 +287,7 @@ footer a:hover { color: var(--text); }
 <header class="hero" id="top">
   <div class="hero-bg" aria-hidden="true">
     <img src="assets/img/wide/hero.jpg" alt="" width="2400" height="1029" fetchpriority="high">
+    <video class="auto" src="assets/video/hero.mp4" poster="assets/img/wide/hero.jpg" muted loop playsinline autoplay preload="metadata"></video>
   </div>
   <div class="wrap">
     <div>
@@ -333,13 +335,13 @@ footer a:hover { color: var(--text); }
       </div>
     </div>
     <div class="gallery reveal" tabindex="0" aria-label="Screenshots">
-      <figure><img src="assets/img/gallery/01-city-loop-race.jpg" alt="Two craft racing above City Loop" loading="lazy" width="590" height="1280"></figure>
-      <figure><img src="assets/img/gallery/02-planet-ring.jpg" alt="Planet Ring curving past a ringed planet" loading="lazy" width="590" height="1280"></figure>
-      <figure><img src="assets/img/gallery/03-canyon-race-pack.jpg" alt="A pack of racers in Canyon" loading="lazy" width="590" height="1280"></figure>
-      <figure><img src="assets/img/gallery/04-snow-peak-aurora.jpg" alt="Snow Peak under the aurora" loading="lazy" width="590" height="1280"></figure>
-      <figure><img src="assets/img/gallery/05-sky-decks-craft.jpg" alt="A craft close up on Sky Decks" loading="lazy" width="590" height="1280"></figure>
-      <figure><img src="assets/img/gallery/06-forest-road.jpg" alt="Forest Road" loading="lazy" width="590" height="1280"></figure>
-      <figure><img src="assets/img/gallery/07-ocean-dive-tunnel.jpg" alt="The Ocean Dive tunnel" loading="lazy" width="590" height="1280"></figure>
+      <figure><img src="assets/img/gallery/01-race.jpg" alt="Racing a pack of rivals in Canyon" loading="lazy" width="590" height="1280"></figure>
+      <figure><img src="assets/img/gallery/02-snow-peak.jpg" alt="Snow Peak under the aurora" loading="lazy" width="590" height="1280"></figure>
+      <figure><img src="assets/img/gallery/03-surge.jpg" alt="Surge on City Loop, stage 6" loading="lazy" width="590" height="1280"></figure>
+      <figure><img src="assets/img/gallery/04-planet-ring-left.jpg" alt="Planet Ring among the asteroids, left half of a panorama" loading="lazy" width="590" height="1280"></figure>
+      <figure><img src="assets/img/gallery/05-planet-ring-right.jpg" alt="A craft passing the ringed planet, right half of a panorama" loading="lazy" width="590" height="1280"></figure>
+      <figure><img src="assets/img/gallery/06-forest-road.jpg" alt="A craft on Forest Road, side view" loading="lazy" width="590" height="1280"></figure>
+      <figure><img src="assets/img/gallery/07-time-trial.jpg" alt="Time Trial on Volcano" loading="lazy" width="590" height="1280"></figure>
       <figure><img src="assets/img/gallery/08-hangar.jpg" alt="The Hangar with Sivora selected" loading="lazy" width="590" height="1280"></figure>
     </div>
   </div>
