@@ -286,8 +286,8 @@ footer a:hover { color: var(--text); }
 
 <header class="hero" id="top">
   <div class="hero-bg" aria-hidden="true">
-    <img src="assets/img/wide/hero.jpg" alt="" width="2400" height="1029" fetchpriority="high">
-    <video class="auto" src="assets/video/hero.mp4" poster="assets/img/wide/hero.jpg" muted loop playsinline autoplay preload="metadata"></video>
+    <img src="assets/img/wide/hero.jpg?v=14" alt="" width="2400" height="1029" fetchpriority="high">
+    <video class="auto" src="assets/video/hero.mp4" poster="assets/img/wide/hero.jpg?v=14" muted loop playsinline autoplay preload="metadata"></video>
   </div>
   <div class="wrap">
     <div>
@@ -304,7 +304,7 @@ footer a:hover { color: var(--text); }
       <p class="price-note">Four circuits and Rookie Career are available for free. Unlock more with a one-time Core Game purchase.</p>
     </div>
     <div class="phone">
-      <video id="trailer" class="auto" src="assets/video/trailer-phone.mp4" poster="assets/video/trailer-phone.jpg" muted loop playsinline autoplay preload="metadata" aria-label="Slipline Racing trailer"></video>
+      <video id="trailer" class="auto" src="assets/video/trailer-v14.mp4" poster="assets/video/trailer-v14.jpg" muted loop playsinline autoplay preload="metadata" aria-label="Slipline Racing trailer"></video>
       <button class="sound" id="sound" aria-label="Turn trailer sound on" aria-pressed="false">
         <svg id="snd-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z" fill="currentColor"/><path d="m22 9-6 6M16 9l6 6"/></svg>
         <svg id="snd-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" hidden><path d="M11 5 6 9H2v6h4l5 4z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>
@@ -454,7 +454,7 @@ footer a:hover { color: var(--text); }
       </div>
     </div>
     <div class="hangar-video">
-      <div class="clip reveal"><video class="auto" src="assets/video/hangar.mp4" poster="assets/video/hangar.jpg" muted loop playsinline preload="none" aria-label="Changing paints and exhausts in the hangar"></video></div>
+      <div class="clip reveal"><video class="auto" src="assets/video/hangar.mp4?v=14" poster="assets/video/hangar.jpg?v=14" muted loop playsinline preload="none" aria-label="Changing paints and exhausts in the hangar"></video></div>
       <div class="reveal">
         <h2 class="display" style="font-size:clamp(28px,4vw,46px)">Paints and exhausts</h2>
         <p class="lede">Earn craft and cosmetics through gameplay. No subscriptions.</p>
@@ -580,7 +580,7 @@ footer a:hover { color: var(--text); }
     el.style.setProperty("--glow-solid", glow);
     el.style.transitionDelay = (i % 4) * 60 + "ms";
     el.innerHTML = `
-      <video class="auto" src="assets/img/circuits/${id}.mp4" poster="assets/img/circuits/${id}.jpg" muted loop playsinline preload="none" aria-hidden="true"></video>
+      <video class="auto" src="assets/img/circuits/${id}.mp4?v=14" poster="assets/img/circuits/${id}.jpg?v=14" muted loop playsinline preload="none" aria-hidden="true"></video>
       <span class="tag ${free ? "free" : "full"}">${free ? "Free" : "Core Game"}</span>
       <div class="meta"><h3>${name}</h3></div>`;
     grid.appendChild(el);

@@ -12,11 +12,11 @@
 </p>
 
 <p align="center">
-  <img src="assets/img/gallery/01-city-loop-race.jpg" width="19%" alt="City Loop">
-  <img src="assets/img/gallery/02-planet-ring.jpg" width="19%" alt="Planet Ring">
-  <img src="assets/img/gallery/04-snow-peak-aurora.jpg" width="19%" alt="Snow Peak">
+  <img src="assets/img/gallery/01-race.jpg" width="19%" alt="Race">
+  <img src="assets/img/gallery/02-snow-peak.jpg" width="19%" alt="Snow Peak">
+  <img src="assets/img/gallery/03-surge.jpg" width="19%" alt="Surge">
   <img src="assets/img/gallery/06-forest-road.jpg" width="19%" alt="Forest Road">
-  <img src="assets/img/gallery/07-ocean-dive-tunnel.jpg" width="19%" alt="Ocean Dive">
+  <img src="assets/img/gallery/07-time-trial.jpg" width="19%" alt="Time Trial">
 </p>
 
 ## The game
