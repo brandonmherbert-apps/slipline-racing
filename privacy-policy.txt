@@ -1,6 +1,6 @@
 SLIPLINE RACING - PRIVACY POLICY
 
-Effective date: 22 October 2026
+Effective date: 6 November 2026
 
 This policy explains how Slipline Racing ("the game", "we", "us") handles
 information on iPhone and iPad. The short version: the game does not collect,
@@ -32,7 +32,9 @@ To work, the game saves the following on your device:
 Gameplay progress is saved on your device and can sync between your own
 devices through your private iCloud key-value storage. This includes Career
 and Elite progress, medals, records, Daily bests, XP, achievements and your
-play streak. We cannot access this private iCloud data. Settings, loadouts and
+play streak, equipped craft, paints, exhausts and loadouts. The one-time App
+Store review request preference also syncs so the game can avoid asking again
+on another device. We cannot access this private iCloud data. Settings and
 ghost recordings stay on each device. Sync is tied to the iCloud account first
 used by this save; switching accounts pauses it. Apple controls availability
 and sync timing.
@@ -74,8 +76,10 @@ https://www.apple.com/legal/privacy/
 5. GAME CENTER
 
 If you sign in to Apple Game Center, the game sends achievement identifiers
-and completion percentages, and your best scores for its leaderboards (Surge
-stages and race and time trial times), to Apple. Other players can see
+and completion percentages, and your best scores for its leaderboards, to
+Apple. In version 1.0.1, these scores are Surge stages and Time
+Trial times. Version 1.0 also submits Race times; existing Race leaderboard
+scores remain with Apple. Other players can see
 leaderboard scores with your Game Center name, as Game Center shows them.
 Apple manages your Game Center account and profile under its privacy policy.
 You can play offline without signing in. Resetting local progress does not
